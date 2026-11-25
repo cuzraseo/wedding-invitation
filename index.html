@@ -5,14 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Wedding Invitation Details</title>
 <style>
-  html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #fff; }
+  html, body { margin: 0; padding: 0; width: 100%; background: #fff; }
   iframe { display: block; width: 100%; height: 100vh; height: 100dvh; border: 0; }
 </style>
 </head>
 <body>
 <iframe
+  id="app"
   src="https://script.google.com/macros/s/AKfycbziN82mktcKtwwcTC7vZQJKclMfSd_MDa-VPqZsAMy3B1zsUmxqruOe7Mtc-G6kYzIX/exec"
-  title="Wedding Invitation Details"
-  loading="eager"></iframe>
+  title="Wedding Invitation Details"></iframe>
+<script>
+(function () {
+  var frame = document.getElementById('app');
+  window.addEventListener('message', function (e) {
+    var d = e.data;
+    if (!d || typeof d !== 'object') return;
+    if (d.type === 'wf-height' && isFinite(d.height)) {
+      frame.style.height = Math.min(Math.max(Math.round(d.height), 300), 30000) + 'px';
+    } else if (d.type === 'wf-scroll' && isFinite(d.y)) {
+      window.scrollTo({ top: Math.max(0, d.y), behavior: 'smooth' });
+    }
+  });
+})();
+</script>
 </body>
 </html>
